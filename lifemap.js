@@ -5,15 +5,42 @@ Thus, for the purpose of this exercise, we will define a 15x15 grid.
 */
 
 /*
-First, we describe a grid.
+First, we describe a matrix.
 */
 
-class Coords {
-  constructor(x,y) {
-    this.x = x
-    this.y = y
+
+class Matrix {
+  constructor(x,y,defaultValue=0) {
+    this.dimensions = [{ axis: 'x', value: x }, {axis: 'y', value: y }]
+    this.size = this.dimensions.values().reduce((acc, cum) => acc*cum, 1)
+    this.defaultValue = 0
+    this.matrix = new Map()
+  }
+  getElement(...locations) {
+    last = this.matrix
+    for (let [i] in locations) {
+      last = last.get(o)
+      if (last === undefined) {
+        return this.defaultValue
+      }
+    }
+    return last
+  }
+  setElement(...args) {
+    const locations = args.slice(0,-2)
+    const [key, value] = args.slice(-2)
+    last = this.matrix
+    for (let [i] in locations) {
+      if (last === undefined) {
+        last = new Map()
+      }
+      last = last.get(i)
+    }
+    last.set()
   }
 }
+
+
 
 
 class LifeGrid {
@@ -43,28 +70,29 @@ class LifeGrid {
 
   initializeMatrix() {
     // Having confirmed that we want to render, we build the raw matrix.
-    const row = new Array(this.width).fill(0) // Initialize bare rows
-    const matrix = new Array(this.height).fill(row) // ...to fill the columns
+    const row = new Array(this.width).fill(0) // Initialize bare columns
+    const matrix = new Array(this.height).fill(row) // ...to fill the rows
 
     return matrix
   }
 
-  theHood(x,y) {
+  adjacent(...coords) {
+    if (coords[0]) instanceof Object {
+    } else if (length(coords) %2) {
+
+    }
     // Generalized function for inspecting the adjacent coordinates
-    // 0,0 starts in the upper left corner
     // -1,-1 would define the upper left of a given coordinate
     // +1,+1 would define the lower right of a given coordinate
-    // edgeHandler
     let neighbors = 0
+
     const start = this.edgeHandler({x: x-1, y: y-1})
     const end = this.edgeHandler({x: x+1, y: y+1})
     return neighbors
   }
 
-  edgeHandler(coords) {
-    if coords.x < 0 {
-      return {}
-    } else if edge > this.
+  refer(...coords) {
+
   }
 
   rulesOfNature(matrix) {
@@ -80,10 +108,11 @@ class LifeGrid {
       Strong or Weak
       Rules of Nature!
     */
-    // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-    // Any live cell with two or three live neighbours lives on to the next generation.
-    // Any live cell with more than three live neighbours dies, as if by overpopulation.
-    // Any dead cell with three live neighbours becomes a live cell, as if by reproduction.
+
+    // Any live cell with fewer than two live neighbours dies
+    // Any live cell with two or three live neighbours lives on
+    // Any live cell with more than three live neighbours dies
+    // Any dead cell with three live neighbours becomes a live cell
   }
 }
 
